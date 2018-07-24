@@ -75,37 +75,49 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // **4.中间件**
 // Koa中使用app.use()用来加载中间件。每个中间件默认接受两个参数，Context对象和next函数。只要调用next函数，就开始执行下一个中间件。
-const Koa = require('koa');
-const app = new Koa();
+// ```
+// const Koa = require('koa');
+// const app = new Koa();
 
-// x-response-time
+// // x-response-time
 
-app.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  ctx.set('X-Response-Time', `${ms}ms`);
-});
+// app.use(async (ctx, next) => {
+//   const start = Date.now();
+//   await next();
+//   const ms = Date.now() - start;
+//   ctx.set('X-Response-Time', `${ms}ms`);
+// });
 
-// logger
+// // logger
 
-app.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}`);
-});
+// app.use(async (ctx, next) => {
+//   const start = Date.now();
+//   await next();
+//   const ms = Date.now() - start;
+//   console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+// });
 
-// response
+// // response
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
+// app.use(async ctx => {
+//   ctx.body = 'Hello World';
+// });
 
-app.listen(3000);
+// app.listen(3000);
+// ```
+// 执行顺序：请求 ==> x-response-time中间件 ==> logger中间件 ==> 响应中间件 ==> logger中间件 ==> response-time中间件 ==> 响应
 
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+// **5.模板引擎**
+// 安装koa模板使用中间件koa-views 
+// 安装koa-views中间件
+// ```
+// $ npm i --save koa-views
+// ```
+// 安装ejs模板引擎
+// ```
+// $ npm i --save ejs
+// ```
 
 
 
