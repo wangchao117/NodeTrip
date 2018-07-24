@@ -10,6 +10,7 @@
 // app.listen(3000)
 // ```
 // 访问 http://localhost:3000/，Koa学习第一步就成功了，const Koa = require('koa')和const app = new Koa()搭建一个 HTTP 服务，中间的则是对用户访问的处理
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 // **2.简易路由实现**
@@ -72,8 +73,36 @@
 // ```
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+// **4.中间件**
+// Koa中使用app.use()用来加载中间件。每个中间件默认接受两个参数，Context对象和next函数。只要调用next函数，就开始执行下一个中间件。
+const Koa = require('koa');
+const app = new Koa();
 
+// x-response-time
 
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  ctx.set('X-Response-Time', `${ms}ms`);
+});
+
+// logger
+
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+});
+
+// response
+
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
+
+app.listen(3000);
 
 
 
