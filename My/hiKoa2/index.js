@@ -183,9 +183,68 @@
 // app.listen(3000)
 // ```
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// **7.请求数据的获取(GET)**
+// 在koa中，获取GET请求数据源头是koa中request对象中的query方法或querystring方法，query返回是格式化好的参数对象，querystring返回的是请求字符串。
+// * 请求对象ctx.query*(或ctx.request.query)*，返回如 { a:1, b:2 }
+// * 请求字符串 ctx.querystring*(或ctx.request.querystring)*，返回如 a=1&b=2
+// 具体示例如下:
+// ```
+// const Koa = require('koa')
+// const app = new Koa()
 
+// app.use( async ( ctx ) => {
+//   const url = ctx.url
+//   const query = ctx.query
+//   const querystring = ctx.querystring
 
+//   ctx.body = {
+//     url,
+//     query,
+//     querystring
+//   }
+// })
 
+// app.listen(3000)
+// ```
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+// **8.请求数据的获取(POST)**
+// 对于POST请求的处理，koa2没有封装获取参数的方法，需要通过自己解析上下文context中的原生node.js请求对象req，将POST表单数据解析成querystring（例如：a=1&b=2&c=3），再将querystring 解析成JSON格式（例如：{"a":"1", "b":"2", "c":"3"}），我们来直接使用koa-bodyparser 模块从 POST 请求的数据体里面提取键值对。
+// 具体实现如下
+// ```
+// const Koa = require('koa')
+// const app = new Koa()
+// const bodyParser = require('koa-bodyparser')
+
+// 使用koa-bodyparser中间件
+// app.use(bodyParser())
+
+// app.use(async (ctx) => {
+
+//   if (ctx.url === '/' && ctx.method === 'GET') {
+//     // 当GET请求时候返回表单页面
+//     let html = `
+//       <h1>koa-bodyparser</h1>
+//       <form method="POST" action="/">
+//         Name:<input name="name" /><br/>
+//         Age:<input name="age" /><br/>
+//         Email: <input name="email" /><br/>
+//         <button type="submit">submit</button>
+//       </form>
+//     `
+//     ctx.body = html
+//   } else if (ctx.url === '/' && ctx.method === 'POST') {
+//     // 当POST请求的时候，中间件koa-bodyparser解析POST表单里的数据，并显示出来
+//     ctx.body = ctx.request.body
+//   } else {
+//     // 404
+//     ctx.body = '<h1>404 Not Found</h1>'
+//   }
+// })
+
+// app.listen(3000)
+// ```
 
 
 
