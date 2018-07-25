@@ -118,24 +118,27 @@
 // ```
 // $ npm i --save ejs
 // ```
-const Koa = require('koa')
-const views = require('koa-views')
-const path = require('path')
-const app = new Koa()
+// 第一个ejs程序
+// ```
+// const Koa = require('koa')
+// const views = require('koa-views')
+// const path = require('path')
+// const app = new Koa()
 
-// 加载模板引擎
-app.use(views(path.join(__dirname, './view'), {
-    extension: 'ejs'
-}))
+// // 加载模板引擎,__dirname为文件名，./view目录下
+// app.use(views(path.join(__dirname, './view'), {
+//     extension: 'ejs'
+// }))
 
-app.use(async (ctx) => {
-    let title = 'Koa2'
-    await ctx.render('index', {
-        title,
-    })
-})
+// app.use(async (ctx) => {
+//     let title = 'Koa2'
+//     await ctx.render('index', {
+//         title,
+//     })
+// })
 
-app.listen(3000)
+// app.listen(3000)
+
 // ./view/index.ejs 模板
 
 // <!DOCTYPE html>
@@ -148,6 +151,39 @@ app.listen(3000)
 //     <p>EJS Welcome to <%= title %></p>
 // </body>
 // </html>
+// ```
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// **6.静态资源服务器koa-static**
+// 安装koa-static
+// ```
+// npm i --save koa-static
+// ```
+// 静态文件服务书写
+// ```
+// const Koa = require('koa')
+// const path = require('path')
+// const static = require('koa-static')
+
+// const app = new Koa()
+
+// // 静态资源目录对于相对入口文件index.js的路径
+// const staticPath = './static'
+
+// app.use(static(
+//   path.join(__dirname, staticPath)
+// ))
+
+
+// app.use(async (ctx) => {
+//   ctx.body = 'hello world'
+// })
+
+// app.listen(3000)
+// ```
+
+
 
 
 
