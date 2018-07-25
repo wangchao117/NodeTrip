@@ -118,6 +118,36 @@
 // ```
 // $ npm i --save ejs
 // ```
+const Koa = require('koa')
+const views = require('koa-views')
+const path = require('path')
+const app = new Koa()
+
+// 加载模板引擎
+app.use(views(path.join(__dirname, './view'), {
+    extension: 'ejs'
+}))
+
+app.use(async (ctx) => {
+    let title = 'Koa2'
+    await ctx.render('index', {
+        title,
+    })
+})
+
+app.listen(3000)
+// ./view/index.ejs 模板
+
+// <!DOCTYPE html>
+// <html>
+// <head>
+//     <title><%= title %></title>
+// </head>
+// <body>
+//     <h1><%= title %></h1>
+//     <p>EJS Welcome to <%= title %></p>
+// </body>
+// </html>
 
 
 
