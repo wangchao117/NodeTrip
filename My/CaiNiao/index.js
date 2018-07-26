@@ -158,6 +158,89 @@
 
 
 
+// // buffer
+// const buf = Buffer.from('王超', 'utf8');
+// console.log(buf)
+// // 输出 72756e6f6f62
+// console.log(buf.toString('hex'));
+// // 输出 cnVub29i
+// console.log(buf.toString('base64'));
+
+
+
+
+// Buffer 提供了以下 API 来创建 Buffer 类：
+// Buffer.alloc(size[, fill[, encoding]])： 返回一个指定大小的 Buffer 实例，如果没有设置 fill，则默认填满 0
+// Buffer.allocUnsafe(size)： 返回一个指定大小的 Buffer 实例，但是它不会被初始化，所以它可能包含敏感的数据
+// Buffer.allocUnsafeSlow(size)
+// Buffer.from(array)： 返回一个被 array 的值初始化的新的 Buffer 实例（传入的 array 的元素只能是数字，不然就会自动被 0 覆盖）
+// Buffer.from(arrayBuffer[, byteOffset[, length]])： 返回一个新建的与给定的 ArrayBuffer 共享同一内存的 Buffer。
+// Buffer.from(buffer)： 复制传入的 Buffer 实例的数据，并返回一个新的 Buffer 实例
+// Buffer.from(string[, encoding])： 返回一个被 string 的值初始化的新的 Buffer 实例
+
+
+
+
+
+// // 创建一个长度为 10、且用 0 填充的 Buffer。
+// const buf1 = Buffer.alloc(10);
+
+// // 创建一个长度为 10、且用 0x1 填充的 Buffer。 
+// const buf2 = Buffer.alloc(10, 1);
+
+// // 创建一个长度为 10、且未初始化的 Buffer。
+// // 这个方法比调用 Buffer.alloc() 更快，
+// // 但返回的 Buffer 实例可能包含旧数据，
+// // 因此需要使用 fill() 或 write() 重写。
+// const buf3 = Buffer.allocUnsafe(10);
+
+// // 创建一个包含 [0x1, 0x2, 0x3] 的 Buffer。
+// const buf4 = Buffer.from([1, 2, 3]);
+
+// // 创建一个包含 UTF-8 字节 [0x74, 0xc3, 0xa9, 0x73, 0x74] 的 Buffer。
+// const buf5 = Buffer.from('tést');
+
+// // 创建一个包含 Latin-1 字节 [0x74, 0xe9, 0x73, 0x74] 的 Buffer。
+// const buf6 = Buffer.from('tést', 'latin1');
+
+
+
+// 可读流
+// var fs = require("fs");
+// var data = '';
+// // 创建可读流
+// var readerStream = fs.createReadStream('1.txt');
+// // 设置编码为 utf8。
+// readerStream.setEncoding('UTF8');
+// // 处理流事件 --> data, end, and error
+// readerStream.on('data', function(chunk) {
+//    data += chunk;
+// });
+// readerStream.on('end',function(){
+//    console.log(data);
+// });
+// readerStream.on('error', function(err){
+//    console.log(err.stack);
+// });
+// console.log("程序执行完毕");
+
+
+
+// // 自己重新写
+// let fs = require('fs')
+// let m = ''
+// let readerStream = fs.createReadStream('1.txt')
+// readerStream.on('data', (chunk) => {
+//     m += chunk
+// })
+// readerStream.on('end', () => {
+//     console.log(m)
+// })
+// readerStream.on('error', (err) => {
+//     console.log(err)
+// })
+
+
 
 
 
