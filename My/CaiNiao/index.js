@@ -291,7 +291,18 @@
 
 
 
-// 模块
+// // 模块
+// let hello = require('./m')
+// hello.world()
+
+
+
+
+
+
+
+
+
 
 
 
