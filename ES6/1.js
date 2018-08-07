@@ -166,15 +166,36 @@
 
 
 
+// // 解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。
+// let {toString: s} = 123;
+// s === Number.prototype.toString // true
+
+// let {toString: s} = true;
+// s === Boolean.prototype.toString // true
+// // 上面代码中，数值和布尔值的包装对象都有toString属性，因此变量s都能取到值。
 
 
 
 
 
+// // 解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错。
+// let { prop: x } = undefined; // TypeError
+// let { prop: y } = null; // TypeError
 
 
 
 
+
+// // 函数的参数也可以使用解构赋值。
+// function add([x, y]){
+//   return x + y;
+// }
+// add([1, 2]); // 3
+// // 上面代码中，函数add的参数表面上是一个数组，但在传入参数的那一刻，数组参数就被解构成变量x和y。对于函数内部的代码来说，它们能感受到的参数就是x和y。
+
+// // 下面是另一个例子。
+// [[1, 2], [3, 4]].map(([a, b]) => a + b);
+// // [ 3, 7 ]
 
 
 
