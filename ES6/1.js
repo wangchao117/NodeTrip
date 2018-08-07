@@ -189,16 +189,106 @@
 
 
 
+// // String.raw()。String.raw方法，往往用来充当模板字符串的处理函数，返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，对应于替换变量后的模板字符串。
+// String.raw`Hi\n${2+3}!`;
+// // 返回 "Hi\\n5!"
+// String.raw`Hi\u000A!`;
+// // 返回 "Hi\\u000A!"
+
+// // 如果原字符串的斜杠已经转义，那么String.raw会进行再次转义。
+// String.raw`Hi\\n`
+// // 返回 "Hi\\\\n"
+
+
+
+
+
+// // Number.isFinite(), Number.isNaN()
+// // ES6 在Number对象上，新提供了Number.isFinite()和Number.isNaN()两个方法。
+// // Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。
+// Number.isFinite(15); // true
+// Number.isFinite(0.8); // true
+// Number.isFinite(NaN); // false
+// Number.isFinite(Infinity); // false
+// Number.isFinite(-Infinity); // false
+// Number.isFinite('foo'); // false
+// Number.isFinite('15'); // false
+// Number.isFinite(true); // false
+// // 注意，如果参数类型不是数值，Number.isFinite一律返回false。
+
+// // Number.isNaN()用来检查一个值是否为NaN。
+// Number.isNaN(NaN) // true
+// Number.isNaN(15) // false
+// Number.isNaN('15') // false
+// Number.isNaN(true) // false
+// Number.isNaN(9/NaN) // true
+// Number.isNaN('true' / 0) // true
+// Number.isNaN('true' / 'true') // tru
+// // 如果参数类型不是NaN，Number.isNaN一律返回false。
+
+// // 它们与传统的全局方法isFinite()和isNaN()的区别在于，传统方法先调用Number()将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效，
+// // Number.isFinite()对于非数值一律返回false, Number.isNaN()只有对于NaN才返回true，非NaN一律返回false。
+
+
+
+
+
+// // Number.isInteger()用来判断一个数值是否为整数。
+// Number.isInteger(25) // true
+// Number.isInteger(25.1) // false
+// // JavaScript 内部，整数和浮点数采用的是同样的储存方法，所以 25 和 25.0 被视为同一个值。
+// Number.isInteger(25) // true
+// Number.isInteger(25.0) // true
+
+// // 如果参数不是数值，Number.isInteger返回false。
+// Number.isInteger() // false
+// Number.isInteger(null) // false
+// Number.isInteger('15') // false
+// Number.isInteger(true) // false
+
+// // 注意，由于 JavaScript 采用 IEEE 754 标准，数值存储为64位双精度格式，数值精度最多可以达到 53 个二进制位（1 个隐藏位与 52 个有效位）。如果数值的精度超过这个限度，第54位及后面的位就会被丢弃，这种情况下，Number.isInteger可能会误判。
+// Number.isInteger(3.0000000000000002) // true
+// // 上面代码中，Number.isInteger的参数明明不是整数，但是会返回true。原因就是这个小数的精度达到了小数点后16个十进制位，转成二进制位超过了53个二进制位，导致最后的那个2被丢弃了。
 
 
 
 
 
 
+// // Number.EPSILON。它表示 1 与大于 1 的最小浮点数之间的差。
+// // 对于 64 位浮点数来说，大于 1 的最小浮点数相当于二进制的1.00..001，小数点后面有连续 51 个零。这个值减去 1 之后，就等于 2 的 -52 次方。
+// Number.EPSILON === Math.pow(2, -52)
+// // true
+// Number.EPSILON
+// // 2.220446049250313e-16
+// Number.EPSILON.toFixed(20)
+// // "0.00000000000000022204"
 
+// // Number.EPSILON实际上是 JavaScript 能够表示的最小精度。误差如果小于这个值，就可以认为已经没有意义了，即不存在误差了。
+// // 引入一个这么小的量的目的，在于为浮点数计算，设置一个误差范围。我们知道浮点数计算是不精确的。
 
+// 0.1 + 0.2
+// // 0.30000000000000004
+// 0.1 + 0.2 - 0.3
+// // 5.551115123125783e-17
+// 5.551115123125783e-17.toFixed(20)
+// // '0.00000000000000005551'
 
+// // 上面代码解释了，为什么比较0.1 + 0.2与0.3得到的结果是false。
+// 0.1 + 0.2 === 0.3 // false
 
+// // Number.EPSILON可以用来设置“能够接受的误差范围”。比如，误差范围设为 2 的-50 次方（即Number.EPSILON * Math.pow(2, 2)），即如果两个浮点数的差小于这个值，我们就认为这两个浮点数相等。
+// // 因此，Number.EPSILON的实质是一个可以接受的最小误差范围
+// function withinErrorMargin (left, right) {
+//     return Math.abs(left - right) < Number.EPSILON * Math.pow(2, 2);
+//   }
+  
+//   0.1 + 0.2 === 0.3 // false
+//   withinErrorMargin(0.1 + 0.2, 0.3) // true
+  
+//   1.1 + 1.3 === 2.4 // false
+//   withinErrorMargin(1.1 + 1.3, 2.4) // true
+// //   上面的代码为浮点数运算，部署了一个误差检查函数
 
 
 
