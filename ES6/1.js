@@ -390,9 +390,15 @@
 //     return x < 0 ? -y : y;
 //   };
 
-// 4.
 
 
+
+
+async function f() {
+  return 123;
+}
+
+f().then(v => console.log(v))
 
 
 
